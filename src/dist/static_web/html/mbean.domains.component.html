@@ -1,0 +1,26 @@
+<div class="btn-group" *ngIf="selectedMBeanServer">
+    <button disabled class="btn btn-default" type="button" aria-expanded="false">
+        MBDoms
+    </button>
+    <button disabled class="btn btn-default" type="button" aria-expanded="false">
+        {{selectedMBeanDomain ? selectedMBeanDomain : "no domain"}}
+    </button>
+    <button class="btn btn-default"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            data-target="dropdown-menu">
+        <span class="caret"></span>
+    </button>
+
+    <ul *ngIf="domains && domains.length" class="dropdown-menu dropdown-menu-right list-group dropdown-list" >
+        <li
+                class="list-group-item dropdown-list-item"
+                *ngFor="#domain of domains"
+                (click)="onSelectMBeanDomain(domain)"
+                [class.active]="selectedMBeanDomain === domain">
+            <a>{{domain}}</a>
+        </li>
+    </ul>
+
+    <ul *ngIf="!domains || !domains.length" class="dropdown-menu dropdown-menu-right">
+        <li><a>select mbean server first</a></li>
+    </ul>
+</div>

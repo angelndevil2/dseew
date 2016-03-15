@@ -1,0 +1,26 @@
+<div class="btn-group" *ngIf="selected">
+    <button disabled class="btn btn-default" type="button" aria-expanded="false">
+        MBSvrs
+    </button>
+    <button disabled class="btn btn-default" type="button" aria-expanded="false">
+        {{selectedMBeanServer ? selectedMBeanServer.id : "no mbean server"}}
+    </button>
+    <button class="btn btn-default"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            data-target="dropdown-menu">
+        <span class="caret"></span>
+    </button>
+
+    <ul *ngIf="servers && servers.length" class="dropdown-menu dropdown-menu-right list-group dropdown-list">
+        <li
+                class="list-group-item dropdown-list-item"
+                *ngFor="#server of servers"
+                (click)="onSelectMBeanSever(server)"
+                [class.active]="selectedMBeanServer === server">
+            <a>{{server.id}}</a>
+        </li>
+    </ul>
+
+    <ul *ngIf="!servers || !servers.length" class="dropdown-menu dropdown-menu-right">
+        <li><a>select server first</a></li>
+    </ul>
+</div>

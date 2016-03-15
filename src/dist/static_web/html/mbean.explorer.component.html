@@ -1,0 +1,106 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <span>
+            <div class="btn-group">
+                <button disabled class="btn btn-default" type="button" aria-expanded="false">
+                    Proxy
+                </button>
+                <button disabled class="btn btn-default" type="button" aria-expanded="false">
+                    {{proxy ? proxy.addr : 'no proxy'}}
+                </button>
+                <button class="btn btn-default btn-primary"  data-toggle="modal"
+                        data-target="#proxySetting">
+                    <span class="glyphicon glyphicon-wrench"></span>
+                </button>
+            </div>
+        </span>
+
+        <span>
+            <div class="btn-group">
+                <button disabled class="btn btn-default" type="button" aria-expanded="false">
+                    Server
+                </button>
+                <button disabled class="btn btn-default" type="button" aria-expanded="false">
+                    {{selected ? selected.addr : "no server"}}
+                </button>
+                <button class="btn btn-default btn-primary"  data-toggle="modal"
+                        data-target="#JvmSetting">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+        </span>
+
+        <span>
+            <mbean-servers [selected]="selected" [proxy]="proxy" (selectMBeanServer)="onSelectMBeanServer($event)"></mbean-servers>
+        </span>
+
+        <span>
+            <mbean-domains [domains]="domains" [selectedMBeanServer]="selectedMBeanServer" (selectMBeanDomain)="onSelectMBeanDomain($event)"></mbean-domains>
+        </span>
+
+        <span>
+            <mbeans
+                    [selectedMBeanDomain]="selectedMBeanDomain"
+                    [mbeans]="mbeans"
+                    (get_attributes)="getAttributes($event)">
+            </mbeans>
+        </span>
+
+        <span>
+            search mbeans
+        </span>
+
+    </div>
+
+    <div class="row">
+        <div >&nbsp;</div>
+        <mbean-attributes [server]="selected" [mbeanServer]="selectedMBeanServer" [selectedMBean]="selectedMBean"></mbean-attributes>
+    </div>
+
+
+    <!-- Dialogs -->
+
+    <!-- Proxy Set Modal Dialog -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="proxySetting">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Proxy Server Set</h4>
+                </div>
+                <div class="modal-body">
+                    <proxy-input (setProxy)="onSetProxy($event)"></proxy-input>
+                </div>
+                <div class="modal-footer bg-warning">
+                    <p class="bg-warning">current is {{proxy ? proxy.addr : ""}}</p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Proxy Set Modal Dialog End -->
+
+    <!--JVM Add Modal Dialog -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="JvmSetting">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Jvm Server Select & Add</h4>
+                </div>
+                <div class="modal-body">
+                    <div><server-list [servers]="servers" (selectServer)="onSelectServer($event)" [selected]="selected"></server-list></div>
+                    <hr>
+                    <div><server-input (addServer)="onAddServer($event)"></server-input></div>
+                </div>
+                <div class="modal-footer bg-warning">
+                    <p class="bg-warning">current is {{selectedServer ? selectedServer.addr : ""}}</p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--JVM Add Modal Dialog End-->
+
+    <!-- Dialogs End-->
+
+</div>

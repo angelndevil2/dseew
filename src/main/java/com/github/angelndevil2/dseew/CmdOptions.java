@@ -1,0 +1,50 @@
+package com.github.angelndevil2.dseew;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.cli.*;
+
+/**
+ * @author k, Created on 16. 2. 21.
+ */
+@Setter @Getter
+public class CmdOptions {
+
+    private final Options options = new Options();
+    private final CommandLineParser parser = new DefaultParser();
+    @Setter(AccessLevel.NONE)
+    private CommandLine cmd;
+    private String[] args;
+
+    public CmdOptions() {
+
+        options.addOption("h", "help", false, "print this message");
+        options.addOption("s", "server", false, "run in server mode");
+        options.addOption(
+                Option.builder("d").
+                        argName("dir").
+                        numberOfArgs(1).
+                        desc("set base directory.").build());
+    }
+
+    /**
+     * set commaond line arguments and parse
+     *
+     * @param args
+     * @throws ParseException
+     */
+    public void setArgs(String[] args) throws ParseException {
+        this.args = args;
+        cmd = parser.parse(options, args);
+    }
+
+    /**
+     * print usage and help information
+     */
+    public void printUsage() {
+        // automatically generate the help statement
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("dsee", options, true);
+    }
+}

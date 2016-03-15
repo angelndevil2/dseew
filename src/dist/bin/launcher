@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+BIN_DIR=$(dirname `readlink -f "$0"`)
+exec "${BIN_DIR}/dseew" -d "${BIN_DIR}/.." "$@"

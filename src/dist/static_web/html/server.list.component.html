@@ -1,0 +1,14 @@
+<div
+    *ngIf="servers && servers.length"
+     class="list-group">
+    <div class="list-group-item list-group-item-success">
+        <p class="h4">JVM Servers</p>
+    </div>
+    <button
+            *ngFor="#server of servers"
+            (click)="onSelect(server)"
+            [class.active]="selected === server"
+            type="button" class="list-group-item" >
+        {{server.addr}}
+    </button>
+</div>

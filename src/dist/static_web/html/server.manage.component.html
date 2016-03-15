@@ -1,0 +1,5 @@
+<div class="container">
+    <server-input (addServer)="onAddServer($event)"></server-input>
+    <proxy-input (setProxy)="onSetProxy($event)"></proxy-input>
+    <server-list [servers]="servers"></server-list>
+</div>
