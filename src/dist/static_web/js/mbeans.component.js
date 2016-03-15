@@ -39,7 +39,7 @@ System.register(['angular2/core', './lib/limit.to.pipe'], function(exports_1, co
                 ], MbeansComponent.prototype, "mbeans", void 0);
                 __decorate([
                     core_1.Output(), 
-                    __metadata('design:type', (typeof (_a = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _a) || Object)
+                    __metadata('design:type', core_1.EventEmitter)
                 ], MbeansComponent.prototype, "get_attributes", void 0);
                 __decorate([
                     core_1.Input(), 
@@ -55,7 +55,6 @@ System.register(['angular2/core', './lib/limit.to.pipe'], function(exports_1, co
                     __metadata('design:paramtypes', [])
                 ], MbeansComponent);
                 return MbeansComponent;
-                var _a;
             }());
             exports_1("MbeansComponent", MbeansComponent);
         }

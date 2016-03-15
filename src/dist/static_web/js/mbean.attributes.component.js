@@ -129,33 +129,32 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                 };
                 __decorate([
                     core_1.Output(), 
-                    __metadata('design:type', (typeof (_a = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _a) || Object)
+                    __metadata('design:type', core_1.EventEmitter)
                 ], MBeanAttributesComponent.prototype, "select", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_b = typeof mbean_1.MBeanAttribute !== 'undefined' && mbean_1.MBeanAttribute) === 'function' && _b) || Object)
+                    __metadata('design:type', mbean_1.MBeanAttribute)
                 ], MBeanAttributesComponent.prototype, "selectedAttribute", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_c = typeof mbean_1.MBean !== 'undefined' && mbean_1.MBean) === 'function' && _c) || Object)
+                    __metadata('design:type', mbean_1.MBean)
                 ], MBeanAttributesComponent.prototype, "selectedMBean", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_d = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _d) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], MBeanAttributesComponent.prototype, "server", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_e = typeof mbean_1.MBeanServer !== 'undefined' && mbean_1.MBeanServer) === 'function' && _e) || Object)
+                    __metadata('design:type', mbean_1.MBeanServer)
                 ], MBeanAttributesComponent.prototype, "mbeanServer", void 0);
                 MBeanAttributesComponent = __decorate([
                     core_1.Component({
                         "selector": "mbean-attributes",
                         "templateUrl": "html/mbean.attributes.component.html"
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_f = typeof http_mbean_proxy_service_1.HttpMbeanProxyService !== 'undefined' && http_mbean_proxy_service_1.HttpMbeanProxyService) === 'function' && _f) || Object])
+                    __metadata('design:paramtypes', [http_mbean_proxy_service_1.HttpMbeanProxyService])
                 ], MBeanAttributesComponent);
                 return MBeanAttributesComponent;
-                var _a, _b, _c, _d, _e, _f;
             }());
             exports_1("MBeanAttributesComponent", MBeanAttributesComponent);
         }

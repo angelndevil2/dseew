@@ -74,10 +74,9 @@ System.register(['angular2/core', './server.input.component', './proxy.input.com
                         templateUrl: 'html/server.manage.component.html',
                         directives: [server_input_component_1.ServerInputComponent, proxy_input_component_1.ProxyInputComponent, server_list_component_1.ServerListComponent]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof server_list_service_1.ServerListService !== 'undefined' && server_list_service_1.ServerListService) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [server_list_service_1.ServerListService])
                 ], ServerManageComponent);
                 return ServerManageComponent;
-                var _a;
             }());
             exports_1("ServerManageComponent", ServerManageComponent);
         }

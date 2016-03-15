@@ -68,15 +68,15 @@ System.register(["angular2/core", "./lib/server", "./service/http.mbean.proxy.se
                 };
                 __decorate([
                     core_1.Output(), 
-                    __metadata('design:type', (typeof (_a = typeof core_2.EventEmitter !== 'undefined' && core_2.EventEmitter) === 'function' && _a) || Object)
+                    __metadata('design:type', core_2.EventEmitter)
                 ], MbeanServersComponent.prototype, "selectMBeanServer", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_b = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _b) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], MbeanServersComponent.prototype, "proxy", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_c = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _c) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], MbeanServersComponent.prototype, "selected", void 0);
                 MbeanServersComponent = __decorate([
                     core_1.Component({
@@ -84,10 +84,9 @@ System.register(["angular2/core", "./lib/server", "./service/http.mbean.proxy.se
                         "templateUrl": "html/mbean.servers.component.html",
                         "styleUrls": ["css/mbean.servers.component.css"]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_d = typeof http_mbean_proxy_service_1.HttpMbeanProxyService !== 'undefined' && http_mbean_proxy_service_1.HttpMbeanProxyService) === 'function' && _d) || Object])
+                    __metadata('design:paramtypes', [http_mbean_proxy_service_1.HttpMbeanProxyService])
                 ], MbeanServersComponent);
                 return MbeanServersComponent;
-                var _a, _b, _c, _d;
             }());
             exports_1("MbeanServersComponent", MbeanServersComponent);
         }

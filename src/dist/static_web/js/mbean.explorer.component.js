@@ -153,7 +153,7 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_a = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _a) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], MBeanExplorerComponent.prototype, "selected", void 0);
                 __decorate([
                     core_1.Input(), 
@@ -161,7 +161,7 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                 ], MBeanExplorerComponent.prototype, "servers", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_b = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _b) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], MBeanExplorerComponent.prototype, "proxy", void 0);
                 __decorate([
                     core_1.HostListener('selectServer', ['$event']), 
@@ -215,10 +215,9 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                         ],
                         providers: [server_list_service_1.ServerListService]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_c = typeof server_list_service_1.ServerListService !== 'undefined' && server_list_service_1.ServerListService) === 'function' && _c) || Object, (typeof (_d = typeof http_mbean_proxy_service_1.HttpMbeanProxyService !== 'undefined' && http_mbean_proxy_service_1.HttpMbeanProxyService) === 'function' && _d) || Object])
+                    __metadata('design:paramtypes', [server_list_service_1.ServerListService, http_mbean_proxy_service_1.HttpMbeanProxyService])
                 ], MBeanExplorerComponent);
                 return MBeanExplorerComponent;
-                var _a, _b, _c, _d;
             }());
             exports_1("MBeanExplorerComponent", MBeanExplorerComponent);
         }

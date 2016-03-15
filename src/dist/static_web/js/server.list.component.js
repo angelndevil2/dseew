@@ -35,11 +35,11 @@ System.register(['angular2/core', './lib/server'], function(exports_1, context_1
                 ], ServerListComponent.prototype, "servers", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_a = typeof server_1.Server !== 'undefined' && server_1.Server) === 'function' && _a) || Object)
+                    __metadata('design:type', server_1.Server)
                 ], ServerListComponent.prototype, "selected", void 0);
                 __decorate([
                     core_1.Output(), 
-                    __metadata('design:type', (typeof (_b = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _b) || Object)
+                    __metadata('design:type', core_1.EventEmitter)
                 ], ServerListComponent.prototype, "selectServer", void 0);
                 ServerListComponent = __decorate([
                     core_1.Component({
@@ -50,7 +50,6 @@ System.register(['angular2/core', './lib/server'], function(exports_1, context_1
                     __metadata('design:paramtypes', [])
                 ], ServerListComponent);
                 return ServerListComponent;
-                var _a, _b;
             }());
             exports_1("ServerListComponent", ServerListComponent);
         }

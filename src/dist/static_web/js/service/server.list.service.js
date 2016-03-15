@@ -69,10 +69,9 @@ System.register(['angular2/core', '../lib/server', './cookie.service'], function
                 };
                 ServerListService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof cookie_service_1.CookieService !== 'undefined' && cookie_service_1.CookieService) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [cookie_service_1.CookieService])
                 ], ServerListService);
                 return ServerListService;
-                var _a;
             }());
             exports_1("ServerListService", ServerListService);
         }

@@ -31,7 +31,7 @@ System.register(['angular2/core', './lib/mbean'], function(exports_1, context_1)
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', (typeof (_a = typeof mbean_1.MBeanServer !== 'undefined' && mbean_1.MBeanServer) === 'function' && _a) || Object)
+                    __metadata('design:type', mbean_1.MBeanServer)
                 ], MBeanDomainsComponent.prototype, "selectedMBeanServer", void 0);
                 __decorate([
                     core_1.Input(), 
@@ -39,7 +39,7 @@ System.register(['angular2/core', './lib/mbean'], function(exports_1, context_1)
                 ], MBeanDomainsComponent.prototype, "domains", void 0);
                 __decorate([
                     core_1.Output(), 
-                    __metadata('design:type', (typeof (_b = typeof core_1.EventEmitter !== 'undefined' && core_1.EventEmitter) === 'function' && _b) || Object)
+                    __metadata('design:type', core_1.EventEmitter)
                 ], MBeanDomainsComponent.prototype, "selectMBeanDomain", void 0);
                 MBeanDomainsComponent = __decorate([
                     core_1.Component({
@@ -49,7 +49,6 @@ System.register(['angular2/core', './lib/mbean'], function(exports_1, context_1)
                     __metadata('design:paramtypes', [])
                 ], MBeanDomainsComponent);
                 return MBeanDomainsComponent;
-                var _a, _b;
             }());
             exports_1("MBeanDomainsComponent", MBeanDomainsComponent);
         }
