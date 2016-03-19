@@ -11,11 +11,25 @@ export class ServerListService {
     private _proxyServer : Server = null;
     private _servers : Server[] = [];
 
+    /**
+     * get jvm server and proxy server from {@link CookieService}
+     *
+     * TODO real server save and retrieve service should be implemented
+     *
+     * @param _cookie cookie service
+     */
     constructor(private _cookie:CookieService) {
         this.getServers(true);
         this.getProxyServer(true);
     }
 
+    /**
+     * get jvm server list from cookie.
+     * if force is false, cached list is return.
+     *
+     * @param force
+     * @returns {Server[]}
+     */
     getServers(force:boolean = false) {
         if (force) {
             var s = this._cookie.getCookie("servers");

@@ -1,7 +1,10 @@
 /**
  * Created by k on 16. 3. 6.
  */
-import {Component, Output, EventEmitter} from 'angular2/core'
+import {Component,
+    Output,
+    EventEmitter
+} from 'angular2/core'
 import {Server} from "./lib/server"
 
 @Component({
@@ -13,9 +16,14 @@ export class ServerInputComponent {
 
     @Output() addServer : EventEmitter<any> = new EventEmitter();
 
+    /**
+     * generate {@link addServer} event
+     * @param addr
+     */
     onAddServer(addr:string) {
         var server = new Server();
         server.addr = addr;
         this.addServer.emit(server);
     }
+
 }

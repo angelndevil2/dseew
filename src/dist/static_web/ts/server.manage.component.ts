@@ -3,7 +3,7 @@
  */
 import {Component, HostListener} from 'angular2/core';
 import {ServerInputComponent} from './server.input.component';
-import {ProxyInputComponent} from './proxy.input.component';
+import {ProxyComponent} from './proxy.component';
 import {Server} from './lib/server'
 import {ServerListService} from './service/server.list.service'
 import {ServerListComponent} from './server.list.component'
@@ -11,7 +11,7 @@ import {ServerListComponent} from './server.list.component'
 @Component({
     selector: "server-manage",
     templateUrl: 'html/server.manage.component.html',
-    directives: [ServerInputComponent, ProxyInputComponent, ServerListComponent]
+    directives: [ServerInputComponent, ProxyComponent, ServerListComponent]
 })
 
 export class ServerManageComponent {

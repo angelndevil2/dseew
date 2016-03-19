@@ -1,7 +1,7 @@
 /**
  * Created by k on 16. 3. 8.
  */
-import {Injectable} from 'angular2/core'
+import {Injectable, Input} from 'angular2/core'
 import {Http, Response} from 'angular2/http'
 import {Server} from '../lib/server'
 import {Observable} from 'rxjs/Observable';
@@ -10,6 +10,9 @@ import {Observable} from 'rxjs/Observable';
  */
 import 'rxjs/Rx'
 
+/**
+ * mbean proxy service
+ */
 @Injectable()
 export class HttpMbeanProxyService {
 

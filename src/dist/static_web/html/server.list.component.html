@@ -1,14 +1,24 @@
-<div
-    *ngIf="servers && servers.length"
-     class="list-group">
-    <div class="list-group-item list-group-item-success">
-        <p class="h4">JVM Servers</p>
+<div class="panel panel-primary"  [class.panel-info]="listVisible">
+    <div class="panel-heading">
+        Server
+        <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onListVisible()"></span>
     </div>
-    <button
-            *ngFor="#server of servers"
-            (click)="onSelect(server)"
-            [class.active]="selected === server"
-            type="button" class="list-group-item" >
-        {{server.addr}}
-    </button>
+    <div class="panel-body">
+        {{selectedServer ? selectedServer.addr : 'select server'}}
+    </div>
+
+    <div class="panel-footer slow-display" [hidden]="!listVisible">
+        <div
+                *ngIf="servers && servers.length"
+                class="list-group">
+            <button
+                    *ngFor="#server of servers"
+                    (click)="onServerSelect(server)"
+                    [class.active]="selectedServer === server"
+                    type="button" class="list-group-item" >
+                {{server.addr}}
+            </button>
+        </div>
+        <server-input (addServer)="onAddServer($event)"></server-input>
+    </div>
 </div>

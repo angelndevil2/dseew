@@ -1,4 +1,4 @@
-System.register(['angular2/core', './server.input.component', './proxy.input.component', './service/server.list.service', './server.list.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './server.input.component', './proxy.component', './service/server.list.service', './server.list.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './server.input.component', './proxy.input.com
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, server_input_component_1, proxy_input_component_1, server_list_service_1, server_list_component_1;
+    var core_1, server_input_component_1, proxy_component_1, server_list_service_1, server_list_component_1;
     var ServerManageComponent;
     return {
         setters:[
@@ -20,8 +20,8 @@ System.register(['angular2/core', './server.input.component', './proxy.input.com
             function (server_input_component_1_1) {
                 server_input_component_1 = server_input_component_1_1;
             },
-            function (proxy_input_component_1_1) {
-                proxy_input_component_1 = proxy_input_component_1_1;
+            function (proxy_component_1_1) {
+                proxy_component_1 = proxy_component_1_1;
             },
             function (server_list_service_1_1) {
                 server_list_service_1 = server_list_service_1_1;
@@ -72,7 +72,7 @@ System.register(['angular2/core', './server.input.component', './proxy.input.com
                     core_1.Component({
                         selector: "server-manage",
                         templateUrl: 'html/server.manage.component.html',
-                        directives: [server_input_component_1.ServerInputComponent, proxy_input_component_1.ProxyInputComponent, server_list_component_1.ServerListComponent]
+                        directives: [server_input_component_1.ServerInputComponent, proxy_component_1.ProxyComponent, server_list_component_1.ServerListComponent]
                     }), 
                     __metadata('design:paramtypes', [server_list_service_1.ServerListService])
                 ], ServerManageComponent);
