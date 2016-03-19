@@ -62,7 +62,7 @@ export class MbeansComponent implements OnChanges {
                     var mbean = new MBean();
                     mbean.domain = self.selectedMBeanDomain;
                     mbean.objectName = data[idx];
-                    mbean.nameValues = MbeansComponent.parseMBean(data[idx]);
+                    mbean.nameValues = MbeansComponent.parseObjectName(data[idx]);
                     mbeans.push(mbean);
                 }
 
@@ -90,7 +90,7 @@ export class MbeansComponent implements OnChanges {
         }
     }
 
-    private static parseMBean(objectName:string) : Object {
+    private static parseObjectName(objectName:string) : Object {
         var ret = {};
         var domainSplit = objectName.split(":");
         var domainRemoved:string = objectName;
