@@ -1,26 +1,26 @@
-<div class="btn-group" *ngIf="selectedMBeanServer">
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        MBDoms
-    </button>
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        {{selectedMBeanDomain ? selectedMBeanDomain : "no domain"}}
-    </button>
-    <button class="btn btn-default"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            data-target="dropdown-menu">
-        <span class="caret"></span>
-    </button>
+<div class="panel panel-primary" [class.panel-info]="listVisible">
+    <div class="panel-heading">
+        MBean Domain
+        <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onListVisible()"></span>
+    </div>
+    <div class="panel-body" *ngIf="domains && domains.length">
+        {{selectedMBeanDomain ? selectedMBeanDomain : 'select domain'}}
+    </div>
+    <div *ngIf="!domains || !domains.length" class="panel-body">
+        select mbean server first
+    </div>
 
-    <ul *ngIf="domains && domains.length" class="dropdown-menu dropdown-menu-right list-group dropdown-list" >
-        <li
-                class="list-group-item dropdown-list-item"
-                *ngFor="#domain of domains"
-                (click)="onSelectMBeanDomain(domain)"
-                [class.active]="selectedMBeanDomain === domain">
-            <a>{{domain}}</a>
-        </li>
-    </ul>
-
-    <ul *ngIf="!domains || !domains.length" class="dropdown-menu dropdown-menu-right">
-        <li><a>select mbean server first</a></li>
-    </ul>
+    <div class="panel-footer slow-display" [hidden]="!listVisible || !domains || !domains.length">
+        <div
+                *ngIf="domains && domains.length"
+                class="list-group">
+            <button
+                    *ngFor="#domain of domains"
+                    (click)="onSelectMBeanDomain(domain)"
+                    [class.active]="selectedMBeanDomain === domain"
+                    type="button" class="list-group-item" >
+                {{domain}}
+            </button>
+        </div>
+    </div>
 </div>

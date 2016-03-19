@@ -25,6 +25,10 @@ System.register(['angular2/core', "./lib/server"], function(exports_1, context_1
                 function ServerInputComponent() {
                     this.addServer = new core_1.EventEmitter();
                 }
+                /**
+                 * generate {@link addServer} event
+                 * @param addr
+                 */
                 ServerInputComponent.prototype.onAddServer = function (addr) {
                     var server = new server_1.Server();
                     server.addr = addr;

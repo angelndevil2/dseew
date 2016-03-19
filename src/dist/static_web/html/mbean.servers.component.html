@@ -1,26 +1,26 @@
-<div class="btn-group" *ngIf="selected">
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        MBSvrs
-    </button>
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        {{selectedMBeanServer ? selectedMBeanServer.id : "no mbean server"}}
-    </button>
-    <button class="btn btn-default"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            data-target="dropdown-menu">
-        <span class="caret"></span>
-    </button>
+<div class="panel panel-primary" [class.panel-info]="listVisible">
+    <div class="panel-heading">
+        MBean Server
+        <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onListVisible()"></span>
+    </div>
+    <div class="panel-body" *ngIf="servers && servers.length">
+        {{selectedMBeanServer ? selectedMBeanServer.id : 'select mbean server'}}
+    </div>
+    <div *ngIf="!servers || !servers.length" class="panel-body">
+        select server first
+    </div>
 
-    <ul *ngIf="servers && servers.length" class="dropdown-menu dropdown-menu-right list-group dropdown-list">
-        <li
-                class="list-group-item dropdown-list-item"
-                *ngFor="#server of servers"
-                (click)="onSelectMBeanSever(server)"
-                [class.active]="selectedMBeanServer === server">
-            <a>{{server.id}}</a>
-        </li>
-    </ul>
-
-    <ul *ngIf="!servers || !servers.length" class="dropdown-menu dropdown-menu-right">
-        <li><a>select server first</a></li>
-    </ul>
+    <div class="panel-footer slow-display" [hidden]="!listVisible || !servers || !servers.length">
+        <div
+                *ngIf="servers && servers.length"
+                class="list-group">
+            <button
+                    *ngFor="#server of servers"
+                    (click)="onSelectMBeanSever(server)"
+                    [class.active]="selectedMBeanServer === server"
+                    type="button" class="list-group-item" >
+                {{server.id}}
+            </button>
+        </div>
+    </div>
 </div>

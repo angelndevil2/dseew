@@ -25,6 +25,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', 'rxjs/Rx']
             },
             function (_1) {}],
         execute: function() {
+            /**
+             * mbean proxy service
+             */
             HttpMbeanProxyService = (function () {
                 function HttpMbeanProxyService(_http) {
                     this._http = _http;

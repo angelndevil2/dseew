@@ -1,0 +1,18 @@
+<div class="panel panel-primary" [class.panel-info]="inputVisible">
+    <div class="panel-heading">
+        Proxy
+        <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onInputVisible()"></span>
+    </div>
+    <div class="panel-body">
+        {{proxy ? proxy.addr: "set proxy"}}
+    </div>
+
+    <div class="panel-footer slow-display" [hidden]="!inputVisible">
+        <div class="input-group">
+            <input type="text" #proxyInput  class="form-control" placeholder="input proxy server address">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary" (click)="onSetProxy(proxyInput.value)">Save</button>
+            </span>
+        </div><!-- /input-group -->
+    </div>
+</div>

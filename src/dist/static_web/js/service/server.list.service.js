@@ -25,6 +25,13 @@ System.register(['angular2/core', '../lib/server', './cookie.service'], function
             }],
         execute: function() {
             ServerListService = (function () {
+                /**
+                 * get jvm server and proxy server from {@link CookieService}
+                 *
+                 * TODO real server save and retrieve service should be implemented
+                 *
+                 * @param _cookie cookie service
+                 */
                 function ServerListService(_cookie) {
                     this._cookie = _cookie;
                     this._proxyServer = null;
@@ -32,6 +39,13 @@ System.register(['angular2/core', '../lib/server', './cookie.service'], function
                     this.getServers(true);
                     this.getProxyServer(true);
                 }
+                /**
+                 * get jvm server list from cookie.
+                 * if force is false, cached list is return.
+                 *
+                 * @param force
+                 * @returns {Server[]}
+                 */
                 ServerListService.prototype.getServers = function (force) {
                     if (force === void 0) { force = false; }
                     if (force) {

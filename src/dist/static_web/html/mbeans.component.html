@@ -1,26 +1,16 @@
-<div class="btn-group" *ngIf="selectedMBeanDomain">
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        MBeans
-    </button>
-    <button disabled class="btn btn-default" type="button" aria-expanded="false">
-        {{selectedMBean ? ((selectedMBean.nameValues && selectedMBean.nameValues.name? selectedMBean.nameValues.name : selectedMBean.objectName) | limitTo:20) : "no mbeans"}}
-    </button>
-    <button class="btn btn-default"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            data-target="dropdown-menu">
-        <span class="caret"></span>
-    </button>
-
-    <ul *ngIf="mbeans && mbeans.length" class="dropdown-menu dropdown-menu-right list-group dropdown-list">
-        <li
-                class="list-group-item dropdown-list-item"
-                *ngFor="#mbean of mbeans"
-                [class.active]="selectedMBean === mbean"
-                (click)="getAttributes(mbean)">
-            <a  title="{{mbean.nameValues ? (mbean.nameValues | json) : ''}}">{{mbean.nameValues && mbean.nameValues.name? mbean.nameValues.name : mbean.objectName}}</a>
-        </li>
-    </ul>
-
-    <ul *ngIf="!mbeans || !mbeans.length" class="dropdown-menu dropdown-menu-right">
-        <li><a>select domain first</a></li>
-    </ul>
+<div class="panel panel-primary" *ngIf="selectedMBeanDomain && mbeans && mbeans.length">
+    <div class="panel-heading">MBeans <span class="badge">{{mbeans.length}}</span></div>
+    <div class="panel-body">
+        <div class="panel panel-primary"
+             *ngFor="#mbean of mbeans"
+             (click)="getAttributes(mbean)"
+             [class.panel-info]="selectedMBean === mbean">
+            <div class="panel-heading">
+                <p style="word-wrap: break-word">{{mbean.objectName}}</p>
+            </div>
+            <div class="panel-body" *ngIf="selectedMBean === mbean">
+                <mbean-attributes [server]="selectedServer" [mbeanServer]="selectedMBeanServer" [selectedMBean]="selectedMBean"></mbean-attributes>
+            </div>
+        </div>
+    </div>
 </div>
