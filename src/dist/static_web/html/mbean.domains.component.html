@@ -1,4 +1,6 @@
-<div class="panel panel-primary" [class.panel-info]="listVisible">
+<div class="panel"
+     [class.panel-primary]="!listVisible"
+     [class.panel-info]="listVisible">
     <div class="panel-heading">
         MBean Domain
         <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onListVisible()"></span>

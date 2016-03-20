@@ -6,7 +6,9 @@ import {Component,
     Output,
     EventEmitter,
     OnChanges,
-    SimpleChange
+    OnInit,
+    SimpleChange,
+    ContentChild
 } from 'angular2/core';
 import {
     MBean,
@@ -29,7 +31,8 @@ import {MBeanAttributesComponent} from "./mbean.attributes.component";
     ]
 })
 
-export class MbeansComponent implements OnChanges {
+export class MbeansComponent implements OnChanges, OnInit {
+
     /**
      * primary field to manage with this class
      *
@@ -71,9 +74,8 @@ export class MbeansComponent implements OnChanges {
             })(data), err => console.error(err));
     }
 
-    getAttributes(mbean: MBean) {
+    onSelectMBean(mbean: MBean) {
         this.selectedMBean = mbean;
-        this.get_attributes.emit(mbean);
     }
 
     /**
@@ -87,6 +89,12 @@ export class MbeansComponent implements OnChanges {
             if (!changes['selectedMBeanDomain'].isFirstChange()) {
                 if (changes['selectedMBeanDomain'].currentValue) this.getMBeans();
             }
+        }
+    }
+
+    ngOnInit() {
+        if (this.selectedServer && this.selectedMBeanServer && this.selectedMBeanDomain) {
+            this.getMBeans();
         }
     }
 
