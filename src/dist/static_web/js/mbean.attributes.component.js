@@ -113,7 +113,10 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                         observable
                             .subscribe(function (data) { return (function (data) {
                             attribute.value = data;
-                        })(data); }, function (err) { return console.error(err); });
+                        })(data); }, function (err) { return (function (err) {
+                            console.debug(err);
+                            attribute.value = null;
+                        })(err); });
                     }
                     else {
                         throw new Error("fail to get attribute");

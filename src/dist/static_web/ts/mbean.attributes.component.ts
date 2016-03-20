@@ -134,7 +134,11 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
             observable
                 .subscribe(data => (function (data) {
                     attribute.value = data;
-                })(data), err => console.error(err));
+                })(data),
+                    err => (function (err) {
+                        console.debug(err);
+                        attribute.value = null;
+                    })(err));
         } else {
             throw new Error("fail to get attribute");
         }
