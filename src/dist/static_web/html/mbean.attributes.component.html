@@ -4,7 +4,7 @@
 
     <div *ngFor="#attribute of mbeanAttributes; #i = index" [class.active]="selectedAttribute === attribute">
         <div>
-            <span class="h3" style="word-wrap: break-word">{{attribute.name}}</span>
+            <span class="h4" style="word-wrap: break-word">{{attribute.name}}</span>
             <span class="label label-primary">{{attribute.type}}</span>
             <span class="label label-info" *ngIf="attribute.isReadable">readable</span>
             <span class="label label-info" *ngIf="attribute.isWritable">writable</span>
