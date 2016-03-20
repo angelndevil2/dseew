@@ -40,12 +40,17 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                      *
                      * @type {EventEmitter}
                      */
-                    this.select = new core_1.EventEmitter();
+                    this.MBeanAttributeSelected = new core_1.EventEmitter();
+                    /**
+                     * event generated when attributes list changed
+                     * @type {EventEmitter}
+                     */
+                    this.MBeanAttributeListChanged = new core_1.EventEmitter();
                 }
                 MBeanAttributesComponent.prototype.ngOnInit = function () {
-                    if (this.selectedMBean) {
+                    if (this.selectedServer && this.mbeanServer && this.selectedMBean) {
                         try {
-                            this.getAttributes(this.selectedMBean);
+                            this.getAttributes();
                         }
                         catch (err) {
                             console.error(err);
@@ -60,12 +65,10 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                 MBeanAttributesComponent.prototype.ngOnChanges = function (changes) {
                     // initailizing or can be check by each isFirstChange method
                     // eg. if (changes['porxy'],isFirstChange()) ...
-                    if ('selectedMBean' in changes && changes['selectedMBean'].isFirstChange()) {
-                    }
-                    else {
-                        if ("selectedMBean" in changes) {
+                    if ('selectedMBean' in changes) {
+                        if (!changes['selectedMBean'].isFirstChange()) {
                             this.selectedMBean = changes['selectedMBean'].currentValue;
-                            this.getAttributes(this.selectedMBean);
+                            this.getAttributes();
                         }
                     }
                 };
@@ -73,17 +76,9 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                  * when selectedMBean is set, get it's attributes and set mbeanAttributes:MBeanAttribute[]
                  *
                  * @param mbean selected mbean
-                 * @returns {MBeanAttribute[] | null}
                  */
-                MBeanAttributesComponent.prototype.getAttributes = function (mbean) {
-                    var observable = this._http.getAttributes(this.server.addr, this.mbeanServer.id, mbean.objectName);
-                    /*        if (attribute.type === "javax.management.j2ee.statistics.Stats")
-                             var ret = this._http.getAttribute(this.selected.addr, this.selectedMBeanServer.id, this.selectedMBean.objectName, e.name, e.type);
-                             else var ret =this._http.getAttribute(this.selected.addr, this.selectedMBeanServer.id, this.selectedMBean.objectName, e.name);
-                                    ret
-                             .subscribe(data => (function(data){
-                             console.log(data);
-                             })(data), err => console.error(err));*/
+                MBeanAttributesComponent.prototype.getAttributes = function () {
+                    var observable = this._http.getAttributes(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName);
                     if (observable) {
                         var self = this;
                         observable.subscribe(function (data) { return (function (data) {
@@ -92,7 +87,6 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                                 try {
                                     var attr = new mbean_1.MBeanAttribute(data[idx]);
                                     self.getAttributeValue(attr);
-                                    console.log(attr.value);
                                     attributes.push(attr);
                                 }
                                 catch (err) {
@@ -100,18 +94,20 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                                 }
                             }
                             self.mbeanAttributes = attributes;
+                            self.MBeanAttributeListChanged.emit(attributes);
                         })(data); }, function (err) { return console.error(err); });
                     }
-                    self.mbeanAttributes = null;
-                    return self.mbeanAttributes;
+                    else {
+                        throw new Error("fail to get attributes");
+                    }
                 };
                 MBeanAttributesComponent.prototype.getAttributeValue = function (attribute) {
                     var observable;
                     if (attribute.type === "javax.management.j2ee.statistics.Stats") {
-                        observable = this._http.getAttribute(this.server.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name, attribute.type);
+                        observable = this._http.getAttribute(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name, attribute.type);
                     }
                     else {
-                        observable = this._http.getAttribute(this.server.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name);
+                        observable = this._http.getAttribute(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name);
                     }
                     if (observable) {
                         observable
@@ -125,12 +121,16 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                 };
                 MBeanAttributesComponent.prototype.onClick = function (attribute) {
                     this.selectedAttribute = attribute;
-                    this.select.emit(attribute);
+                    this.MBeanAttributeSelected.emit(attribute);
                 };
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], MBeanAttributesComponent.prototype, "select", void 0);
+                ], MBeanAttributesComponent.prototype, "MBeanAttributeSelected", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], MBeanAttributesComponent.prototype, "MBeanAttributeListChanged", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', mbean_1.MBeanAttribute)
@@ -142,7 +142,7 @@ System.register(['angular2/core', './lib/mbean', './lib/server', "./service/http
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', server_1.Server)
-                ], MBeanAttributesComponent.prototype, "server", void 0);
+                ], MBeanAttributesComponent.prototype, "selectedServer", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', mbean_1.MBeanServer)

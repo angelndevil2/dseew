@@ -1,15 +1,19 @@
 <div class="panel panel-primary" *ngIf="selectedMBeanDomain && mbeans && mbeans.length">
     <div class="panel-heading">MBeans <span class="badge">{{mbeans.length}}</span></div>
     <div class="panel-body">
-        <div class="panel panel-primary"
+        <div class="panel"
              *ngFor="#mbean of mbeans"
-             (click)="getAttributes(mbean)"
+             [class.panel-default]="selectedMBean !== mbean"
              [class.panel-info]="selectedMBean === mbean">
             <div class="panel-heading">
-                <p style="word-wrap: break-word">{{mbean.objectName}}</p>
+                <p *ngIf="selectedMBean === mbean" style="word-wrap: break-word">{{mbean.objectName}}</p>
+                <a  (click)="onSelectMBean(mbean)" *ngIf="selectedMBean !== mbean"><p style="word-wrap: break-word">{{mbean.objectName}}</p></a>
             </div>
             <div class="panel-body" *ngIf="selectedMBean === mbean">
-                <mbean-attributes [server]="selectedServer" [mbeanServer]="selectedMBeanServer" [selectedMBean]="selectedMBean"></mbean-attributes>
+                <mbean-attributes
+                        [selectedServer]="selectedServer"
+                        [mbeanServer]="selectedMBeanServer"
+                        [selectedMBean]="selectedMBean"></mbean-attributes>
             </div>
         </div>
     </div>

@@ -1,4 +1,6 @@
-<div class="panel panel-primary" [class.panel-info]="inputVisible">
+<div class="panel"
+     [class.panel-primary]="!inputVisible"
+     [class.panel-info]="inputVisible">
     <div class="panel-heading">
         Proxy
         <span class="glyphicon glyphicon-cog pull-right clickable" (click)="onInputVisible()"></span>

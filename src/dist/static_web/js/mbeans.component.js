@@ -56,16 +56,15 @@ System.register(['angular2/core', './lib/mbean', './service/http.mbean.proxy.ser
                             var mbean = new mbean_1.MBean();
                             mbean.domain = self.selectedMBeanDomain;
                             mbean.objectName = data[idx];
-                            mbean.nameValues = MbeansComponent.parseMBean(data[idx]);
+                            mbean.nameValues = MbeansComponent.parseObjectName(data[idx]);
                             mbeans.push(mbean);
                         }
                         self.mbeans = mbeans;
                         self.MBeanListChanged.emit(self.mbeans);
                     })(data); }, function (err) { return console.error(err); });
                 };
-                MbeansComponent.prototype.getAttributes = function (mbean) {
+                MbeansComponent.prototype.onSelectMBean = function (mbean) {
                     this.selectedMBean = mbean;
-                    this.get_attributes.emit(mbean);
                 };
                 /**
                  * when selected mbean domain is changed, reload {@link MbeansComponent.mbeans}
@@ -81,7 +80,12 @@ System.register(['angular2/core', './lib/mbean', './service/http.mbean.proxy.ser
                         }
                     }
                 };
-                MbeansComponent.parseMBean = function (objectName) {
+                MbeansComponent.prototype.ngOnInit = function () {
+                    if (this.selectedServer && this.selectedMBeanServer && this.selectedMBeanDomain) {
+                        this.getMBeans();
+                    }
+                };
+                MbeansComponent.parseObjectName = function (objectName) {
                     var ret = {};
                     var domainSplit = objectName.split(":");
                     var domainRemoved = objectName;

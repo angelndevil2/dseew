@@ -64,7 +64,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                     this.selectedMBeanDomain = null;
                     this.domains = null;
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.servers = e;
                 };
                 /**
@@ -77,7 +76,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                     this.selectedMBeanDomain = null;
                     this.domains = null;
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.selectedServer = e;
                 };
                 /**
@@ -88,7 +86,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                     this.selectedMBeanDomain = null;
                     this.domains = null;
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.mbeanServers = e;
                 };
                 /**
@@ -98,7 +95,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                 MBeanExplorerComponent.prototype.onSelectMBeanServer = function (e) {
                     this.domains = null;
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.selectedMBeanDomain = null;
                     this.selectedMBeanServer = e;
                 };
@@ -108,7 +104,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                  */
                 MBeanExplorerComponent.prototype.onSelectMBeanDomain = function (e) {
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.selectedMBeanDomain = e;
                 };
                 /**
@@ -118,25 +113,7 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                 MBeanExplorerComponent.prototype.onMBeanDomainListChange = function (e) {
                     this.selectedMBeanDomain = null;
                     this.mbeans = null;
-                    this.mbeanAttributes = null;
                     this.domains = e;
-                };
-                MBeanExplorerComponent.prototype.getAttributes = function (e) {
-                    var self = this;
-                    this.selectedMBean = e;
-                    this._http.getAttributes(this.selectedServer.addr, this.selectedMBeanServer.id, e.objectName)
-                        .subscribe(function (data) { return (function (data) {
-                        var attributes = [];
-                        for (var idx in data) {
-                            try {
-                                attributes.push(new mbean_1.MBeanAttribute(data[idx]));
-                            }
-                            catch (err) {
-                                console.error(err);
-                            }
-                        }
-                        self.mbeanAttributes = attributes;
-                    })(data); }, function (err) { return console.error(err); });
                 };
                 MBeanExplorerComponent.prototype.ngOnInit = function () {
                 };
@@ -168,10 +145,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                     core_1.Input(), 
                     __metadata('design:type', mbean_1.MBean)
                 ], MBeanExplorerComponent.prototype, "selectedMBean", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Array)
-                ], MBeanExplorerComponent.prototype, "mbeanAttributes", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', server_1.Server)
@@ -222,12 +195,6 @@ System.register(['angular2/core', './server.list.component', './mbean.servers.co
                     __metadata('design:paramtypes', [Object]), 
                     __metadata('design:returntype', void 0)
                 ], MBeanExplorerComponent.prototype, "onMBeanDomainListChange", null);
-                __decorate([
-                    core_1.HostListener('get_attributes', ['$event']), 
-                    __metadata('design:type', Function), 
-                    __metadata('design:paramtypes', [Object]), 
-                    __metadata('design:returntype', void 0)
-                ], MBeanExplorerComponent.prototype, "getAttributes", null);
                 MBeanExplorerComponent = __decorate([
                     core_1.Component({
                         selector: "mbean-explorer",

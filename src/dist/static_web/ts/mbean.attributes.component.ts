@@ -31,7 +31,12 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
      *
      * @type {EventEmitter}
      */
-    @Output() select: EventEmitter<any> = new EventEmitter();
+    @Output() MBeanAttributeSelected: EventEmitter<any> = new EventEmitter();
+    /**
+     * event generated when attributes list changed
+     * @type {EventEmitter}
+     */
+    @Output() MBeanAttributeListChanged: EventEmitter<any> = new EventEmitter();
     /**
      * selected attribute
      */
@@ -47,7 +52,7 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
     /**
      * server on which jvm is running
      */
-    @Input() server:Server;
+    @Input() selectedServer:Server;
     /**
      * mbean server which serve {@link MBeanAttributesComponent#selectedMBean}
      */
@@ -60,9 +65,9 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
     constructor(private _http:HttpMbeanProxyService) {}
 
     ngOnInit() {
-        if (this.selectedMBean) {
+        if (this.selectedServer && this.mbeanServer && this.selectedMBean) {
             try {
-                this.getAttributes(this.selectedMBean);
+                this.getAttributes();
             } catch (err) {
                 console.error(err);
             }
@@ -77,11 +82,10 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
         // initailizing or can be check by each isFirstChange method
         // eg. if (changes['porxy'],isFirstChange()) ...
-        if ('selectedMBean' in changes && changes['selectedMBean'].isFirstChange()) {
-        } else {
-            if ("selectedMBean" in changes) {
+        if ('selectedMBean' in changes) {
+            if (!changes['selectedMBean'].isFirstChange()) {
                 this.selectedMBean = changes['selectedMBean'].currentValue;
-                this.getAttributes(this.selectedMBean);
+                this.getAttributes();
             }
         }
     }
@@ -90,19 +94,11 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
      * when selectedMBean is set, get it's attributes and set mbeanAttributes:MBeanAttribute[]
      *
      * @param mbean selected mbean
-     * @returns {MBeanAttribute[] | null}
      */
-    private getAttributes(mbean:MBean):MBeanAttribute[] {
+    private getAttributes() {
 
-        var observable = this._http.getAttributes(this.server.addr, this.mbeanServer.id, mbean.objectName);
+        var observable = this._http.getAttributes(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName);
 
-/*        if (attribute.type === "javax.management.j2ee.statistics.Stats")
-         var ret = this._http.getAttribute(this.selected.addr, this.selectedMBeanServer.id, this.selectedMBean.objectName, e.name, e.type);
-         else var ret =this._http.getAttribute(this.selected.addr, this.selectedMBeanServer.id, this.selectedMBean.objectName, e.name);
-                ret
-         .subscribe(data => (function(data){
-         console.log(data);
-         })(data), err => console.error(err));*/
         if (observable) {
             var self = this;
             observable.subscribe(data => (function(data){
@@ -112,28 +108,26 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
                     try {
                         var attr = new MBeanAttribute(data[idx]);
                         self.getAttributeValue(attr);
-                        console.log(attr.value);
                         attributes.push(attr);
                     } catch (err) {
                         console.error(err);
                     }
                 }
                 self.mbeanAttributes = attributes;
+                self.MBeanAttributeListChanged.emit(attributes);
             })(data), err => console.error(err));
+        } else {
+            throw new Error("fail to get attributes");
         }
-
-        self.mbeanAttributes = null;
-
-        return self.mbeanAttributes;
     }
 
     private getAttributeValue(attribute:MBeanAttribute) {
 
         var observable;
         if (attribute.type === "javax.management.j2ee.statistics.Stats") {
-            observable = this._http.getAttribute(this.server.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name, attribute.type);
+            observable = this._http.getAttribute(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name, attribute.type);
         } else {
-            observable =this._http.getAttribute(this.server.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name);
+            observable =this._http.getAttribute(this.selectedServer.addr, this.mbeanServer.id, this.selectedMBean.objectName, attribute.name);
         }
 
         if (observable) {
@@ -148,7 +142,7 @@ export class MBeanAttributesComponent implements OnInit, OnChanges {
 
     onClick(attribute:MBeanAttribute) {
         this.selectedAttribute = attribute;
-        this.select.emit(attribute);
+        this.MBeanAttributeSelected.emit(attribute);
     }
 
 }

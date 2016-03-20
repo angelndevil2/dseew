@@ -47,7 +47,6 @@ export class MBeanExplorerComponent implements OnInit{
     @Input() domains:string[];
     @Input() mbeans:MBean[];
     @Input() selectedMBean:MBean;
-    @Input() mbeanAttributes:MBeanAttribute[];
     @Input() proxy:Server;
     @Input() mbeanServers:MBeanServer[];
 
@@ -71,7 +70,6 @@ export class MBeanExplorerComponent implements OnInit{
         this.selectedMBeanDomain = null;
         this.domains = null;
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.servers = e;
     }
 
@@ -85,7 +83,6 @@ export class MBeanExplorerComponent implements OnInit{
         this.selectedMBeanDomain = null;
         this.domains = null;
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.selectedServer = e;
     }
 
@@ -97,7 +94,6 @@ export class MBeanExplorerComponent implements OnInit{
         this.selectedMBeanDomain = null;
         this.domains = null;
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.mbeanServers = e;
     }
 
@@ -108,7 +104,6 @@ export class MBeanExplorerComponent implements OnInit{
     @HostListener('MBeanServerSelected', ['$event']) onSelectMBeanServer(e) {
         this.domains = null;
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.selectedMBeanDomain = null;
         this.selectedMBeanServer = e;
     }
@@ -119,7 +114,6 @@ export class MBeanExplorerComponent implements OnInit{
      */
     @HostListener('MBeanDomainSelected', ['$event']) onSelectMBeanDomain(e) {
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.selectedMBeanDomain = e;
     }
 
@@ -130,27 +124,7 @@ export class MBeanExplorerComponent implements OnInit{
     @HostListener('MBeanDomainListChanged', ['$event']) onMBeanDomainListChange(e) {
         this.selectedMBeanDomain = null;
         this.mbeans = null;
-        this.mbeanAttributes = null;
         this.domains = e;
-    }
-
-    @HostListener('get_attributes', ['$event']) getAttributes(e) {
-        var self = this;
-        this.selectedMBean = e;
-        this._http.getAttributes(this.selectedServer.addr, this.selectedMBeanServer.id, e.objectName)
-            .subscribe(data => (function(data){
-                var attributes:MBeanAttribute[] = [];
-
-                for (var idx in data) {
-                    try {
-                        attributes.push(new MBeanAttribute(data[idx]));
-                    } catch (err) {
-                        console.error(err);
-                    }
-                }
-                self.mbeanAttributes = attributes;
-            })(data), err => console.error(err));
-
     }
 
     ngOnInit() {
